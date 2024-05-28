@@ -1,2 +1,2 @@
 This is front end sub module \\
-Edit from Ubuntu
+Edit from Ubuntu, laptop
