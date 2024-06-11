@@ -26,6 +26,8 @@ interface Book {
   quantity: number;
 }
 
+const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
 export default function UserDashboard({
   params,
 }: {
@@ -41,7 +43,7 @@ export default function UserDashboard({
           Authorization: `Bearer ${token}`,
         };
         const response = await axios.get(
-          'http://localhost:8080/api/rent/' + params.userId,
+          `${API_URL}/rent/` + params.userId,
           { headers }
         );
         console.log(response.data);
@@ -85,8 +87,8 @@ export default function UserDashboard({
 
   return (
     <div className=" px-3 py-2 grid grid-cols-2 gap-3 bg-blue-300">
-      <div className="w-full  bg-white border border-gray-200 rounded-lg shadow">
-        <div className="flex flex-col items-center pb-10">
+      <div className="w-full flex justify-center items-center bg-white border border-gray-200 rounded-lg shadow">
+        <div className="flex flex-col gap-5 items-center pb-10">
           <Image
             width={150}
             height={150}
@@ -106,7 +108,7 @@ export default function UserDashboard({
           </h5>
         </div>
         <div className="flow-root">
-          <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+          <div className="relative overflow-x-auto overflow-y-auto max-h-72 shadow-md sm:rounded-lg">
             {bookList.length ? (
               <table className="w-full text-sm text-left rtl:text-right text-gray-500">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50">

@@ -36,6 +36,8 @@ interface CustomJwtPayload extends JwtPayload {
 
 type AlertType = 'info' | 'success' | 'fail';
 
+const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
 export default function BookDetail({ params }: { params: { bookId: string } }) {
   const [quantity, setQuantity] = useState<number>(1);
   const [book, setBook] = useState<Book | null>(null);
@@ -52,7 +54,7 @@ export default function BookDetail({ params }: { params: { bookId: string } }) {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          'http://localhost:8080/api/books/' + params.bookId
+          `${API_URL}/books/` + params.bookId
         );
         setBook(response.data);
         console.log(response.data);
@@ -98,11 +100,12 @@ export default function BookDetail({ params }: { params: { bookId: string } }) {
       console.log(body);
       console.log(headers);
       const response = await axios.post(
-        'http://localhost:8080/api/rent',
+        `${API_URL}/rent`,
         body,
         { headers }
       );
       console.log(response.data);
+      alert("success", "Rent book successfully!", `You've rented ${book?.name}`);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response?.status === 403) {
@@ -137,7 +140,7 @@ export default function BookDetail({ params }: { params: { bookId: string } }) {
       };
 
       const response = await axios.patch(
-        'http://localhost:8080/api/books/' + params.bookId,
+        `${API_URL}/books/` + params.bookId,
         body,
         { headers }
       );
@@ -169,7 +172,7 @@ export default function BookDetail({ params }: { params: { bookId: string } }) {
         Authorization: `Bearer ${Cookies.get('accessToken')}`,
       };
       const response = await axios.put(
-        'http://localhost:8080/api/books/' + params.bookId,
+        `${API_URL}/books/` + params.bookId,
         body,
         { headers }
       );
@@ -203,7 +206,7 @@ export default function BookDetail({ params }: { params: { bookId: string } }) {
       </div>
       <div className=" grid grid-rows-2 gap-3">
         <div className=" w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8">
-          {role === 'USER' && (
+          {role === 'USER' || role === "" && (
             <div className="space-y-6">
               <h5 className="text-2xl font-medium text-gray-900">
                 Enter end date to rent a book

@@ -27,6 +27,8 @@ interface Category {
   name: string;
 }
 
+const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
 export default function Home() {
   const dispatch = useDispatch<AppDispatch>();
   const books = useSelector((state: RootState) => state.books.books);
@@ -35,15 +37,17 @@ export default function Home() {
   const [thumbnails, setThumbnails] = useState<string[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   useEffect(() => {
+    console.log("base url", API_URL);
     const fetchData = async () => {
       try {
         let response;
-        response = await axios.get('http://localhost:8080/api/books');
+        // response = await axios.get('http://localhost:8080/api/books');
+        response = await axios.get(`${API_URL}/books`);
         console.log(response.data);
         // setBooks(response.data);
         dispatch(setBooks(response.data));
 
-        response = await axios.get('http://localhost:8080/api/categories');
+        response = await axios.get(`${API_URL}/categories`);
         // console.log(response.data._embedded.categories);
         setCategories(response.data._embedded.categories);
       } catch (error) {

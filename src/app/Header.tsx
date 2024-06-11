@@ -33,6 +33,8 @@ interface Book {
   quantity: number;
 }
 
+const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
 type AlertType = 'info' | 'success' | 'fail';
 
 export default function Header() {
@@ -115,7 +117,7 @@ export default function Header() {
       if (isSignUp) {
         try {
           const response = await axios.post(
-            'http://localhost:8080/api/auth/register',
+            `${API_URL}/auth/register`,
             body
           );
           clearUserInput();
@@ -139,7 +141,7 @@ export default function Header() {
       } else {
         try {
           const response = await axios.post(
-            'http://localhost:8080/api/auth/login',
+            `${API_URL}/auth/login`,
             body
           );
           console.log(response.data);
@@ -199,7 +201,7 @@ export default function Header() {
         Authorization: `Bearer ${Cookies.get('accessToken')}`,
       };
       const response = await axios.post(
-        'http://localhost:8080/api/books',
+        `${API_URL}/books`,
         body,
         { headers }
       );
