@@ -7,6 +7,8 @@ import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
+// import { Provider } from 'react-redux';
+import { Providers } from './GlobalRedux/provider';
 
 const inter = Inter({ subsets: ['latin'] });
 const poppins = Poppins({ weight: '500', subsets: ['latin'] });
@@ -24,9 +26,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
-        <Header />
-        {children}
-        <Footer />
+        <Providers>
+          <Header />
+          {children}
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
