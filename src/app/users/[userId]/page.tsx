@@ -4,6 +4,7 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import { GetStaticPaths, GetStaticProps } from 'next';
 
 interface CustomJwtPayload extends JwtPayload {
   sub: string;
@@ -136,4 +137,23 @@ export default function UserDashboard({
       </div>
     </div>
   );
+
+}
+
+
+// export const getStaticPaths: GetStaticPaths = async () => {
+//     const response = await axios.get(`${API_URL}/users`);
+//     const users = response.data;
+//     const paths = users.map()
+// }
+
+export const  getStaticProps: GetStaticProps = async (context) => {
+  const userId = context.params?.userId as string;
+  return {
+    props: {
+      params: {
+        userId
+      }
+    }
+  }
 }
