@@ -29,6 +29,15 @@ interface Book {
 
 const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
+export async function generateStaticParams() {
+  // const response = await axios.get(`${API_URL}/users`);
+  // const users = response.data;
+
+  // return users.map((user: { id: string }) => ({
+  //   params: { userId: user.id.toString() },
+  // }));
+}
+
 export default function UserDashboard({
   params,
 }: {
