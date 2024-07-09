@@ -139,21 +139,3 @@ export default function UserDashboard({
   );
 
 }
-
-
-// export const getStaticPaths: GetStaticPaths = async () => {
-//     const response = await axios.get(`${API_URL}/users`);
-//     const users = response.data;
-//     const paths = users.map()
-// }
-
-export const  getStaticProps: GetStaticProps = async (context) => {
-  const userId = context.params?.userId as string;
-  return {
-    props: {
-      params: {
-        userId
-      }
-    }
-  }
-}
