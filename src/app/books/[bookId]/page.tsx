@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Cookies from 'js-cookie';
 import Alert from '@/app/Alert';
 import { JwtPayload, jwtDecode } from 'jwt-decode';
+import { GetStaticPaths } from 'next';
 
 interface Book {
   category: {
@@ -38,6 +39,19 @@ type AlertType = 'info' | 'success' | 'fail';
 
 const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
+export const getStaticPaths: GetStaticPaths = async () => {
+  const response = await axios.get(`${API_URL}/books`);
+  const books = response.data;
+  const paths = books.map((b: {id: number}) => {
+    params: {bookId: b.id};
+  })
+  return {
+    paths,
+    fallback: false
+  }
+}
+
+
 export default function BookDetail({ params }: { params: { bookId: string } }) {
   const [quantity, setQuantity] = useState<number>(1);
   const [book, setBook] = useState<Book | null>(null);
@@ -53,11 +67,13 @@ export default function BookDetail({ params }: { params: { bookId: string } }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
+        let response = await axios.get(
           `${API_URL}/books/` + params.bookId
         );
         setBook(response.data);
-        console.log(response.data);
+        // console.log(response.data);
+        // response = await axios.get(`${API_URL}/books`);
+        // console.log(response.data);
       } catch (error) {
         console.log(error);
       }
