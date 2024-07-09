@@ -38,16 +38,16 @@ const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 //   // }));
 // }
 
-// export const getStaticPaths: GetStaticPaths = async () => {
-//   return {
-//     paths: [
-//       {
-//         params: {userId: '1'},
-//       }
-//     ],
-//     fallback: false
-//   }
-// }
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [
+      {
+        params: {userId: '1'},
+      }
+    ],
+    fallback: false
+  }
+}
 
 
 export default function UserDashboard({
