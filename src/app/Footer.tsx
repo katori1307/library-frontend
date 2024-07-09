@@ -34,7 +34,7 @@ export default function Footer() {
             <ul>
               <li className="mb-2">21127147 - Võ Anh Quân</li>
               <li className="mb-2">21127188 - Đỗ Minh Triết</li>
-              <li className="mb-2">21127asd - Vũ Anh Khoa</li>
+              <li className="mb-2">21127631 - Vũ Anh Khoa</li>
             </ul>
           </div>
           <div className="flex flex-col w-64">

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
-import { GetStaticPaths, GetStaticProps } from 'next';
+import { useParams } from 'next/navigation';
 
 interface CustomJwtPayload extends JwtPayload {
   sub: string;
@@ -30,63 +30,29 @@ interface Book {
 const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 // export async function generateStaticParams() {
-//   // const response = await axios.get(`${API_URL}/users`);
-//   // const users = response.data;
-
-//   // return users.map((user: { id: string }) => ({
-//   //   params: { userId: user.id.toString() },
-//   // }));
+//   return [
+//       {userId: 1},
+//       {userId: 2},
+//       {userId: 3},
+//       {userId: 4},
+//       {userId: 5},
+//       {userId: 6},
+//       {userId: 7},
+//       {userId: 8},
+//       {userId: 9},
+//       {userId: 10},
+//   ]
 // }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  return {
-    paths: [
-      {
-        params: {userId: '1'},
-      }
-    ],
-    fallback: false
-  }
-}
 
-export const getStaticProps: GetStaticProps = async ({params}) => {
-  const userId = params?.userId;
-  try {
-    const token = Cookies.get("accessToken");
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
-    const response = await axios.get(
-      `${API_URL}/rent/` + userId,
-      { headers }
-    );
-    const bookList: Book[] = response.data;
-    return {
-      props: {
-        bookList: bookList
-      },
-      // revalidate: 60 * 60
-    }
-  } catch(error) {
-    console.log(error);
-    return {
-      props: {
-        bookList: []
-      },
-      // revalidate: 60 * 60
-    }
-  }
-}
+export default function UserDashboard() {
 
-export default function UserDashboard({
-  params
-}: {
-  params: { userId: string };
-}) {
   const [bookList, setBookList] = useState<Book[]>([]);
   const [username, setUsername] = useState<string>('');
   const [emptyList, setEmptyList] = useState<boolean>(false);
+  const params = useParams();
   useEffect(() => {
+    // console.log("USER ID", params);
     const fetchData = async () => {
       try {
         const headers = {
@@ -187,8 +153,7 @@ export default function UserDashboard({
     </div>
   );
 
-} 
-
+}
 
 // export default function UserDashboard({
 //   params,
