@@ -39,17 +39,17 @@ type AlertType = 'info' | 'success' | 'fail';
 
 const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const response = await axios.get(`${API_URL}/books`);
-  const books = response.data;
-  const paths = books.map((b: {id: number}) => {
-    params: {bookId: b.id};
-  })
-  return {
-    paths,
-    fallback: false
-  }
-}
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   const response = await axios.get(`${API_URL}/books`);
+//   const books = response.data;
+//   const paths = books.map((b: {id: number}) => {
+//     params: {bookId: b.id};
+//   })
+//   return {
+//     paths,
+//     fallback: false
+//   }
+// }
 
 
 export default function BookDetail({ params }: { params: { bookId: string } }) {
@@ -84,7 +84,7 @@ export default function BookDetail({ params }: { params: { bookId: string } }) {
       const decoded = jwtDecode<CustomJwtPayload>(token);
       setRole(decoded['user-details'].roles[0]);
     }
-  }, []);
+  }, [params.bookId]);
 
   const alert = (type: AlertType, title: string, subtitle: string) => {
     setTitle(title);

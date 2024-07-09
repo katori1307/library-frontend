@@ -68,7 +68,7 @@ export default function UserDashboard({
 
       fetchData();
     }
-  }, []);
+  }, [params.userId]);
   const renderBooks = () => {
     return bookList.map((b, index) => {
       return (
