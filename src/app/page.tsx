@@ -56,7 +56,7 @@ export default function Home() {
     };
 
     fetchData();
-  }, []);
+  }, [dispatch]);
 
   const renderCaregories = () => {
     return categories.map((category, index) => {
