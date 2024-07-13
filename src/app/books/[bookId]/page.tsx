@@ -37,7 +37,11 @@ interface CustomJwtPayload extends JwtPayload {
 
 type AlertType = 'info' | 'success' | 'fail';
 
-const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+// const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+const CORS_URL = process.env.NEXT_PUBLIC_CORS_URL;
+const API_URL = `${CORS_URL}${BASE_URL}`;
+
 
 // export const getStaticPaths: GetStaticPaths = async () => {
 //   const response = await axios.get(`${API_URL}/books`);

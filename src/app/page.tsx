@@ -27,7 +27,11 @@ interface Category {
   name: string;
 }
 
-const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+// const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+const CORS_URL = process.env.NEXT_PUBLIC_CORS_URL;
+const API_URL = `${CORS_URL}${BASE_URL}`;
+
 
 export default function Home() {
   const dispatch = useDispatch<AppDispatch>();
